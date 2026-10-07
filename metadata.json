@@ -1,0 +1,6 @@
+{
+  "name": "Sanjeet Music Hub",
+  "description": "Professional Bhojpuri, Nagpuri and Hindi music remix and production booking studio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,271 @@
+{
+  "entities": {
+    "Booking": {
+      "title": "Booking",
+      "description": "Music and remix booking order for Sanjeet Music Hub",
+      "type": "object",
+      "properties": {
+        "bookingId": {
+          "type": "string",
+          "description": "Unique human readable booking identifier (e.g. SMH-1001)",
+          "maxLength": 64
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Full name of the customer",
+          "maxLength": 100,
+          "minLength": 2
+        },
+        "mobileNumber": {
+          "type": "string",
+          "description": "Contact mobile phone number",
+          "maxLength": 25,
+          "minLength": 7
+        },
+        "whatsappNumber": {
+          "type": "string",
+          "description": "WhatsApp number for quick preview deliveries and updates",
+          "maxLength": 25,
+          "minLength": 7
+        },
+        "service": {
+          "type": "string",
+          "description": "Selected remix or audio service",
+          "maxLength": 100
+        },
+        "language": {
+          "type": "string",
+          "description": "Target language (Bhojpuri, Nagpuri, Hindi, etc.)",
+          "maxLength": 50
+        },
+        "songName": {
+          "type": "string",
+          "description": "Original or target track title",
+          "maxLength": 150
+        },
+        "artistName": {
+          "type": "string",
+          "description": "Original singer/artist name",
+          "maxLength": 100
+        },
+        "nameToAdd": {
+          "type": "string",
+          "description": "Custom name or studio tag to add in remix voice drop",
+          "maxLength": 100
+        },
+        "preferredStyle": {
+          "type": "string",
+          "description": "Remix genre/style punch (Hard Dholki, Electro, Bass Boost, etc.)",
+          "maxLength": 100
+        },
+        "additionalRequirements": {
+          "type": "string",
+          "description": "Specific tempo, drops, intro details or special instructions",
+          "maxLength": 1000
+        },
+        "deliveryTime": {
+          "type": "string",
+          "description": "Urgency timeline (Standard 2-3 Days, Express 24h, Urgent)",
+          "maxLength": 50
+        },
+        "status": {
+          "type": "string",
+          "description": "Current order lifecycle status",
+          "enum": [
+            "Pending",
+            "Confirmed",
+            "Payment Pending",
+            "Payment Received",
+            "In Progress",
+            "Completed",
+            "Cancelled"
+          ]
+        },
+        "originalPrice": {
+          "type": "number",
+          "description": "Base service price before discount"
+        },
+        "discount": {
+          "type": "number",
+          "description": "Discount applied via gift code"
+        },
+        "giftCode": {
+          "type": "string",
+          "description": "Applied promo or gift code",
+          "maxLength": 50
+        },
+        "finalPrice": {
+          "type": "number",
+          "description": "Calculated and verified final amount"
+        },
+        "customerUid": {
+          "type": "string",
+          "description": "Firebase Auth UID if user was logged in, or 'guest'",
+          "maxLength": 128
+        },
+        "customerEmail": {
+          "type": "string",
+          "description": "Customer email address if logged in",
+          "maxLength": 150
+        },
+        "audioFileName": {
+          "type": "string",
+          "description": "Reference audio or song sample filename",
+          "maxLength": 200
+        },
+        "audioFileData": {
+          "type": "string",
+          "description": "Audio snippet data or reference url",
+          "maxLength": 500000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": [
+        "bookingId",
+        "customerName",
+        "mobileNumber",
+        "service",
+        "language",
+        "songName",
+        "status"
+      ]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Studio administrator account record",
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "passwordHash": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "superadmin"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["username", "email", "passwordHash", "role"]
+    },
+    "WebsiteSettings": {
+      "title": "WebsiteSettings",
+      "description": "Global website configuration parameters",
+      "type": "object",
+      "properties": {
+        "businessName": { "type": "string", "maxLength": 100 },
+        "ownerName": { "type": "string", "maxLength": 100 },
+        "tagline": { "type": "string", "maxLength": 200 },
+        "heroTitle": { "type": "string", "maxLength": 200 },
+        "heroSubtitle": { "type": "string", "maxLength": 200 },
+        "heroDescription": { "type": "string", "maxLength": 1000 },
+        "phoneNumber": { "type": "string", "maxLength": 30 },
+        "whatsappNumber": { "type": "string", "maxLength": 30 },
+        "businessEmail": { "type": "string", "maxLength": 150 },
+        "supportEmail": { "type": "string", "maxLength": 150 },
+        "instagramUsername": { "type": "string", "maxLength": 100 },
+        "instagramUrl": { "type": "string", "maxLength": 300 },
+        "footerText": { "type": "string", "maxLength": 500 },
+        "copyrightText": { "type": "string", "maxLength": 200 },
+        "logoUrl": { "type": "string", "maxLength": 500 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "ServiceItem": {
+      "title": "ServiceItem",
+      "description": "Music service package with dynamic pricing",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 100 },
+        "serviceName": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "price": { "type": "number" },
+        "discountPrice": { "type": "number" },
+        "icon": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["Active", "Inactive"] },
+        "order": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "serviceName", "price", "status"]
+    },
+    "GiftCode": {
+      "title": "GiftCode",
+      "description": "Promo and gift codes for client order discounts",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "maxLength": 50 },
+        "discountType": { "type": "string", "enum": ["percentage", "fixed"] },
+        "discountValue": { "type": "number" },
+        "minOrderValue": { "type": "number" },
+        "maxDiscount": { "type": "number" },
+        "startDate": { "type": "string" },
+        "expiryDate": { "type": "string" },
+        "usageLimit": { "type": "number" },
+        "usedCount": { "type": "number" },
+        "perCustomerLimit": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "showPublicOffer": { "type": "boolean" },
+        "publicBannerText": { "type": "string", "maxLength": 300 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["code", "discountType", "discountValue", "status"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Administrative actions audit log",
+      "type": "object",
+      "properties": {
+        "action": { "type": "string", "maxLength": 100 },
+        "details": { "type": "string", "maxLength": 500 },
+        "adminUser": { "type": "string", "maxLength": 100 },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["action", "details", "adminUser", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Collection of all remix bookings submitted by clients and managed by studio administrators"
+    },
+    "/admins/{adminId}": {
+      "schema": "AdminUser",
+      "description": "Studio administrator authentication records"
+    },
+    "/website_settings/{settingId}": {
+      "schema": "WebsiteSettings",
+      "description": "Global website configuration (brand, contacts, social media, copy)"
+    },
+    "/services/{serviceId}": {
+      "schema": "ServiceItem",
+      "description": "Catalog of studio remix services with dynamic pricing"
+    },
+    "/gift_codes/{codeId}": {
+      "schema": "GiftCode",
+      "description": "Active and scheduled discount/gift voucher codes"
+    },
+    "/audit_logs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Activity log of all administrative actions"
+    }
+  }
+}

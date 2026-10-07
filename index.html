@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanjeet Music Hub | Professional Bhojpuri, Nagpuri & Hindi Remix Studio</title>
+  <meta name="description" content="Turn your song into something powerful. Professional Bhojpuri, Nagpuri and Hindi music remix, DJ dubbing, and audio production booking studio." />
+  <meta property="og:title" content="Sanjeet Music Hub | Professional Music & Remix Services" />
+  <meta property="og:description" content="Professional Bhojpuri, Nagpuri and Hindi music remix, DJ dubbing, name drops, and sound check audio mastering." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- Ambient Background Layers -->
+  <div class="ambient-layer">
+    <div class="grid-overlay"></div>
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+    <div class="glow-orb-3"></div>
+  </div>
+
+  <!-- Dynamic Public Offer Announcement Bar -->
+  <div id="publicOfferBanner" style="display: none; background: linear-gradient(90deg, rgba(224,36,195,0.25), rgba(0,240,255,0.25)); border-bottom: 1px solid rgba(0,240,255,0.3); padding: 0.55rem 1rem; text-align: center; font-size: 0.88rem; font-weight: 700; color: #fff; position: relative; z-index: 101;">
+    <span style="margin-right: 0.4rem;">🎉</span>
+    <span id="publicOfferText">Special Studio Offer Active!</span>
+    <a href="#booking" style="margin-left: 0.75rem; color: var(--neon-cyan); text-decoration: underline; font-weight: 800;">Claim Discount Code →</a>
+  </div>
+
+  <!-- Sticky Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-wrapper">
+      <a href="#home" class="brand-logo">
+        <div class="logo-sound-icon">
+          <div class="mini-equalizer">
+            <span class="mini-bar"></span>
+            <span class="mini-bar"></span>
+            <span class="mini-bar"></span>
+            <span class="mini-bar"></span>
+          </div>
+        </div>
+        <div class="brand-name">
+          <span id="brandNameText">Sanjeet</span>
+          <span style="color: var(--neon-cyan);" id="brandHubText">Music Hub</span>
+          <span class="brand-tag">STUDIO</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#visualizer" class="nav-link">Beat Studio</a></li>
+          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="#why-us" class="nav-link">Why Us</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Auth container -->
+        <button id="googleSignInBtn" class="nav-auth-btn" title="Sign in with Google">
+          <svg width="16" height="16" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Sign In</span>
+        </button>
+
+        <div id="authStatusBox" class="user-badge" style="display: none;">
+          <span id="authUserName">User</span>
+          <button id="authSignOutBtn" style="background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 0.75rem;">(Sign Out)</button>
+        </div>
+
+        <a href="#booking" class="btn btn-primary btn-sm">Book Now</a>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Slide Down Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#home" class="mobile-nav-link">Home <span>→</span></a>
+      <a href="#services" class="mobile-nav-link">Services <span>→</span></a>
+      <a href="#visualizer" class="mobile-nav-link">Beat Studio & Visualizer <span>→</span></a>
+      <a href="#how-it-works" class="mobile-nav-link">How It Works <span>→</span></a>
+      <a href="#why-us" class="mobile-nav-link">Why Choose Us <span>→</span></a>
+      <a href="#booking" class="mobile-nav-link" style="color: var(--neon-cyan);">Book Your Remix <span>→</span></a>
+      <a href="#faq" class="mobile-nav-link">FAQ <span>→</span></a>
+      <a href="#contact" class="mobile-nav-link">Contact Studio <span>→</span></a>
+    </div>
+  </header>
+
+  <!-- Fullscreen Premium Hero Section -->
+  <section class="hero-section" id="home">
+    <div class="hero-backdrop"></div>
+    <div class="studio-grid-bg"></div>
+    <div class="container hero-content">
+      <div class="section-badge" id="heroBadgeText">⚡ Professional Sound Production & Mastering</div>
+      <h1 class="hero-title" id="heroTitle">
+        Turn Your Song Into <br />
+        <span class="gradient-text">Something Powerful</span>
+      </h1>
+      <p class="hero-subtitle" id="heroSubtitle">
+        Professional Bhojpuri • Nagpuri • Hindi Music & Remix Services
+      </p>
+      <p class="hero-description" id="heroDescription">
+        Elevate your audio with heavyweight festival basslines, crystal-clear 320kbps mastering, custom DJ voice drops, and regional rhythm perfection tailored for stages, DJ competition boxes, and digital releases.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="#booking" class="btn btn-primary">
+          <span>🔥</span> <span>Book Your Remix</span>
+        </a>
+        <a href="#services" class="btn btn-secondary">
+          <span>🎧</span> <span>Explore Services</span>
+        </a>
+      </div>
+
+      <!-- Animated Sound Wave Element -->
+      <div class="soundwave-hero">
+        <div class="wave-bar" style="animation-delay: 0.1s"></div>
+        <div class="wave-bar" style="animation-delay: 0.3s"></div>
+        <div class="wave-bar" style="animation-delay: 0.2s"></div>
+        <div class="wave-bar" style="animation-delay: 0.5s"></div>
+        <div class="wave-bar" style="animation-delay: 0.4s"></div>
+        <div class="wave-bar" style="animation-delay: 0.6s"></div>
+        <div class="wave-bar" style="animation-delay: 0.15s"></div>
+        <div class="wave-bar" style="animation-delay: 0.45s"></div>
+        <div class="wave-bar" style="animation-delay: 0.7s"></div>
+        <div class="wave-bar" style="animation-delay: 0.35s"></div>
+        <div class="wave-bar" style="animation-delay: 0.25s"></div>
+        <div class="wave-bar" style="animation-delay: 0.55s"></div>
+      </div>
+
+      <!-- Quick Studio Stats -->
+      <div class="hero-stats-row">
+        <div class="stat-item">
+          <div class="stat-value">1,500<span>+</span></div>
+          <div class="stat-label">Remixes Produced</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">4.9<span>/5</span></div>
+          <div class="stat-label">Client Rating</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">24-48<span>h</span></div>
+          <div class="stat-label">Fast Delivery</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">320<span>kbps</span></div>
+          <div class="stat-label">Studio Master HD</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Our Craft</div>
+        <h2>Studio <span class="cyan-gradient-text">Remix Services</span></h2>
+        <p>From high-voltage Bhojpuri club punches to deep Nagpuri tribal grooves, choose the bespoke audio treatment for your track.</p>
+      </div>
+
+      <!-- Dynamic Services Grid -->
+      <div class="services-grid" id="servicesGridContainer">
+        <!-- Rendered dynamically via js/app.js -->
+        <div class="service-card">
+          <div class="service-icon-box">🎚️</div>
+          <h3 class="service-title">Bhojpuri Remix</h3>
+          <p class="service-desc">Aggressive dholki rhythms, electrifying brass hits, drop vocal chops, and deep sub-bass.</p>
+          <div style="font-size: 1.15rem; font-weight: 800; color: var(--neon-cyan); margin-bottom: 1rem;">
+            ₹250 <span style="font-size: 0.85rem; text-decoration: line-through; opacity: 0.6; color: var(--text-muted);">₹300</span>
+          </div>
+          <button class="btn btn-secondary btn-sm btn-block book-service-btn" data-service="Bhojpuri Remix">
+            Book This Service →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Music Visualizer & Beat Studio Section -->
+  <section class="visualizer-section" id="visualizer">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Live Spectrum</div>
+        <h2>Audio Spectrum <span class="gradient-text">& Beat Studio</span></h2>
+        <p>Test the frequency punch of our studio sound engine directly in your browser with real-time Web Audio synthesis.</p>
+      </div>
+
+      <div class="visualizer-box">
+        <div class="visualizer-header">
+          <div>
+            <h3 id="currentTrackName" style="color: #fff; font-size: 1.3rem;">Bhojpuri Electro Dholki Drop</h3>
+            <span style="font-size: 0.85rem; color: var(--neon-cyan);">Studio Rhythm Engine v2.4</span>
+          </div>
+
+          <div class="visualizer-controls">
+            <button class="track-btn active" data-track="bhojpuri">Bhojpuri Beat</button>
+            <button class="track-btn" data-track="nagpuri">Nagpuri Groove</button>
+            <button class="track-btn" data-track="hindi">Hindi Club</button>
+            <button class="track-btn" data-track="woofer">Woofer 50Hz</button>
+            <button id="playVisualizerBtn" class="btn btn-primary btn-sm">
+              <span>▶</span> <span>Play Studio Beat Sample</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Reactive Spectrum Canvas Display -->
+        <div class="visualizer-canvas-wrap" id="visualizerBars"></div>
+
+        <div class="visualizer-status-bar">
+          <div>Frequency: 20Hz - 20,000Hz Studio Response</div>
+          <div id="visualizerBpm" style="color: var(--neon-cyan); font-weight: 700;">135 BPM</div>
+          <div>Mastering: 320kbps Lossless Emulation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-section" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Simple Workflow</div>
+        <h2>How It <span class="cyan-gradient-text">Works</span></h2>
+        <p>Getting your professional remix is simple, transparent, and tracked step-by-step from submission to final delivery.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3 class="step-title">Choose Your Service</h3>
+          <p class="step-desc">Pick your preferred music style (Bhojpuri, Nagpuri, Hindi, Name Tag Drop, or Sound Check).</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3 class="step-title">Submit Song Details</h3>
+          <p class="step-desc">Fill out your song title, artist, custom name drop, and optional audio sample reference.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3 class="step-title">We Confirm Your Request</h3>
+          <p class="step-desc">Our studio team reviews your brief, confirms pricing, and starts music production.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <h3 class="step-title">Your Remix Is Prepared</h3>
+          <p class="step-desc">Receive your full 320kbps HD remix directly via WhatsApp or cloud download within your chosen delivery window.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="why-section" id="why-us">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Studio Advantage</div>
+        <h2>Why Choose <span class="gradient-text" id="whyChooseUsTitle">Sanjeet Music Hub</span></h2>
+        <p id="ownerCreditBadge">Supervised by Lead Music Producer <span style="color: var(--neon-cyan); font-weight: 700;" id="ownerNameDisplay">Sanjeet Raj</span>.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🎛️</div>
+          <div class="why-content">
+            <h3>Professional Editing</h3>
+            <p>Every track is hand-crafted in professional DAW software with dedicated analog-modeled EQ, multiband compression, and limiter plugins.</p>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">🎤</div>
+          <div class="why-content">
+            <h3>Custom Name Remix</h3>
+            <p>Get your own name or DJ branding voiced professionally and infused into key transition points of your remix.</p>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">🔥</div>
+          <div class="why-content">
+            <h3>Bhojpuri & Nagpuri Focus</h3>
+            <p>We specialize in the exact authentic theka patterns, folk swing, and fast tempo breaks that local crowds adore.</p>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">💬</div>
+          <div class="why-content">
+            <h3>Fast Communication</h3>
+            <p>Instant WhatsApp status confirmations, progress audio previews, and direct voice note communication with the engineer.</p>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">⚙️</div>
+          <div class="why-content">
+            <h3>Custom Requirements</h3>
+            <p>Whether you need a 10-second stage intro or an 8-minute wedding party non-stop megamix, we adjust to your exact needs.</p>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">💎</div>
+          <div class="why-content">
+            <h3>Quality Sound Guarantee</h3>
+            <p>Crystal clear treble, balanced mids, and undistorted punchy sub-bass tested across mobile earphones, car stereos, and DJ line arrays.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking System Section -->
+  <section class="booking-section" id="booking">
+    <div class="container">
+      <div class="booking-wrapper">
+        <div class="booking-header-row">
+          <div>
+            <div class="section-badge" style="margin-bottom: 0.5rem;">Online Booking Desk</div>
+            <h2 style="font-size: 2.2rem;">Book Your <span class="cyan-gradient-text">Custom Remix</span></h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+              Fill in your specifications below. Your request synchronizes directly with our studio production desk.
+            </p>
+          </div>
+          <div class="booking-notice">
+            <span>🛡️</span> <span>Synced with Studio Cloud Database</span>
+          </div>
+        </div>
+
+        <!-- Booking Form -->
+        <form id="bookingForm" novalidate>
+          <div class="form-grid">
+            <!-- Customer Name -->
+            <div class="form-group">
+              <label class="form-label" for="customerName">
+                <span>Customer Name <span class="req">*</span></span>
+              </label>
+              <input type="text" id="customerName" class="form-input" placeholder="e.g. Rahul Kumar / DJ Rahul" required />
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="form-group">
+              <label class="form-label" for="mobileNumber">
+                <span>Mobile Number <span class="req">*</span></span>
+              </label>
+              <input type="tel" id="mobileNumber" class="form-input" placeholder="e.g. 9876543210" required />
+            </div>
+
+            <!-- WhatsApp Number -->
+            <div class="form-group">
+              <label class="form-label" for="whatsappNumber">
+                <span>WhatsApp Number</span>
+                <span class="optional">(For audio preview delivery)</span>
+              </label>
+              <input type="tel" id="whatsappNumber" class="form-input" placeholder="e.g. 9876543210" />
+            </div>
+
+            <!-- Select Service -->
+            <div class="form-group">
+              <label class="form-label" for="serviceSelect">
+                <span>Select Service <span class="req">*</span></span>
+              </label>
+              <select id="serviceSelect" class="form-select" required>
+                <option value="" disabled selected>-- Choose Remix Service --</option>
+                <!-- Dynamically populated with live prices -->
+              </select>
+            </div>
+
+            <!-- Select Language -->
+            <div class="form-group">
+              <label class="form-label" for="languageSelect">
+                <span>Select Language <span class="req">*</span></span>
+              </label>
+              <select id="languageSelect" class="form-select" required>
+                <option value="" disabled selected>-- Choose Song Language --</option>
+                <option value="Bhojpuri">Bhojpuri</option>
+                <option value="Nagpuri">Nagpuri</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Maithili">Maithili</option>
+                <option value="Khortha">Khortha</option>
+                <option value="Other Regional">Other Regional / Fusion</option>
+              </select>
+            </div>
+
+            <!-- Song Name -->
+            <div class="form-group">
+              <label class="form-label" for="songName">
+                <span>Song Name / Track Title <span class="req">*</span></span>
+              </label>
+              <input type="text" id="songName" class="form-input" placeholder="e.g. Raja Ji Chuma Lela / Tor Nayan Bole" required />
+            </div>
+
+            <!-- Artist Name -->
+            <div class="form-group">
+              <label class="form-label" for="artistName">
+                <span>Original Singer / Artist Name</span>
+                <span class="optional">(Optional)</span>
+              </label>
+              <input type="text" id="artistName" class="form-input" placeholder="e.g. Pawan Singh / Pritam / Khesari" />
+            </div>
+
+            <!-- Name To Add In Remix -->
+            <div class="form-group">
+              <label class="form-label" for="nameToAdd">
+                <span>Name To Add In Remix (DJ Voice Tag)</span>
+                <span class="optional">(e.g. 'DJ Sanjeet Ranchi')</span>
+              </label>
+              <input type="text" id="nameToAdd" class="form-input" placeholder="Your name or DJ branding name" />
+            </div>
+
+            <!-- Preferred Style -->
+            <div class="form-group">
+              <label class="form-label" for="preferredStyle">
+                <span>Preferred Style & Tempo</span>
+              </label>
+              <select id="preferredStyle" class="form-select">
+                <option value="Hard Dholki / Electro DJ Punch">Hard Dholki / Electro DJ Punch</option>
+                <option value="Vocal Punch / Drop & Riser">Vocal Punch / Drop & Riser</option>
+                <option value="Club / Party Blast Fast Mix">Club / Party Blast Fast Mix</option>
+                <option value="Bass Booster / 8D Woofer Check">Bass Booster / 8D Woofer Check</option>
+                <option value="Traditional Nagpuri Folk Rhythm">Traditional Nagpuri Folk Rhythm</option>
+                <option value="Slowed & Reverb Lofi Vibe">Slowed & Reverb Lofi Vibe</option>
+                <option value="Competition Sound Testing">Competition Sound Testing</option>
+                <option value="Custom Style">Custom Style (explain in notes)</option>
+              </select>
+            </div>
+
+            <!-- Preferred Delivery Time -->
+            <div class="form-group">
+              <label class="form-label" for="deliveryTime">
+                <span>Preferred Delivery Timeline</span>
+              </label>
+              <select id="deliveryTime" class="form-select">
+                <option value="Standard (2-3 Days)">Standard (2-3 Days)</option>
+                <option value="Express (24 Hours)">Express (24 Hours)</option>
+                <option value="Urgent Same-Day (6-12 Hours)">Urgent Same-Day (6-12 Hours)</option>
+              </select>
+            </div>
+
+            <!-- File Upload (Optional Audio/Sample) -->
+            <div class="form-group full-width">
+              <label class="form-label">
+                <span>Attach Song Audio or Reference Voice Note</span>
+                <span class="optional">(Optional MP3/WAV/M4A, Max 8MB)</span>
+              </label>
+              <div class="file-upload-zone" id="fileDropZone">
+                <input type="file" id="audioFileInput" class="file-upload-input" accept="audio/*,.mp3,.wav,.m4a" />
+                <div class="upload-icon">🎵</div>
+                <div class="upload-text">Drag & drop your song audio file here, or click to browse</div>
+                <div class="upload-hint">Upload original track snippet or recorded vocal sample for voice tag</div>
+              </div>
+
+              <!-- Upload progress -->
+              <div class="upload-progress-wrap" id="uploadProgressBar">
+                <div class="upload-progress-bar">
+                  <div class="upload-progress-fill" id="uploadProgressFill"></div>
+                </div>
+              </div>
+
+              <!-- Attached file chip -->
+              <div class="file-attached-info" id="fileAttachedInfo">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span>🎧</span>
+                  <span id="attachedFileName" style="font-weight: 600;">sample.mp3</span>
+                </div>
+                <button type="button" class="remove-file-btn" id="removeFileBtn">Remove ✕</button>
+              </div>
+            </div>
+
+            <!-- Additional Requirements -->
+            <div class="form-group full-width">
+              <label class="form-label" for="additionalRequirements">
+                <span>Additional Requirements & Instructions</span>
+                <span class="optional">(Specific drop timings, intro length, competition notes)</span>
+              </label>
+              <textarea id="additionalRequirements" class="form-textarea" placeholder="Describe any specific instructions, favorite drop timestamp, or tempo expectations..."></textarea>
+            </div>
+
+            <!-- Gift / Promo Code Section -->
+            <div class="form-group full-width" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 12px; padding: 1.25rem;">
+              <label class="form-label" for="promoCodeInput" style="display: flex; justify-content: space-between;">
+                <span>Gift Code / Promo Voucher</span>
+                <span class="optional">(e.g. SANJEET50 for 50% discount)</span>
+              </label>
+              <div style="display: flex; gap: 0.75rem; margin-top: 0.35rem;">
+                <input type="text" id="promoCodeInput" class="form-input" placeholder="Enter coupon code..." style="text-transform: uppercase; font-family: monospace; font-weight: 700; letter-spacing: 1px;" />
+                <button type="button" id="applyPromoCodeBtn" class="btn btn-secondary btn-sm" style="white-space: nowrap; padding: 0 1.25rem;">
+                  Apply Code
+                </button>
+              </div>
+              <div id="promoCodeFeedback" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
+            </div>
+
+            <!-- Live Verified Price Summary Box -->
+            <div class="form-group full-width" id="bookingPriceBox" style="background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 12px; padding: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; font-size: 0.9rem;">
+                <span style="color: var(--text-muted);">Base Studio Service Fee:</span>
+                <strong id="priceSummaryBase" style="color: #fff;">₹250</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; font-size: 0.9rem;">
+                <span style="color: var(--text-muted);">Promo Code Discount:</span>
+                <strong id="priceSummaryDiscount" style="color: var(--neon-emerald);">-₹0</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 0.6rem; font-size: 1.15rem;">
+                <span style="font-weight: 800; color: #fff;">Estimated Final Amount:</span>
+                <strong id="priceSummaryFinal" style="color: var(--neon-cyan); font-size: 1.35rem;">₹250</strong>
+              </div>
+            </div>
+
+            <!-- Submit Row -->
+            <div class="form-submit-row">
+              <div class="form-guarantee">
+                <span>🔒</span>
+                <span>Protected studio submission. A unique Booking ID will be generated immediately.</span>
+              </div>
+              <div class="submit-btn-wrap">
+                <button type="submit" id="submitBookingBtn" class="btn btn-primary btn-block">
+                  <span id="submitBtnSpinner" style="display: none; animation: spin 1s infinite linear;">⚙️</span>
+                  <span id="submitBtnText">Submit Booking Request</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Client Words</div>
+        <h2>What Artists <span class="cyan-gradient-text">& DJs Say</span></h2>
+        <p>Trusted by stage performers, local wedding sound engineers, and rising regional YouTube artists.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="rating-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "Sanjeet Music Hub delivered my Bhojpuri remix within 24 hours. The dholki punch and drop vocal clarity is next level on big 18-inch woofers!"
+          </p>
+          <div class="client-info">
+            <div class="client-avatar">RK</div>
+            <div>
+              <div class="client-name">DJ Rahul Rock</div>
+              <div class="client-role">Live DJ • Ranchi, Jharkhand</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "The Nagpuri style remix they did for my festival song got over 250,000 views on YouTube! The theka rhythm was clean and traditional yet modern."
+          </p>
+          <div class="client-info">
+            <div class="client-avatar">AK</div>
+            <div>
+              <div class="client-name">Amit Kerketta</div>
+              <div class="client-role">Regional Vocalist • Gumla</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "Custom name drop was recorded crisp and placed right at the build-up drop. The entire competition crowd was screaming. Best studio in the region!"
+          </p>
+          <div class="client-info">
+            <div class="client-avatar">VP</div>
+            <div>
+              <div class="client-name">Vikash Sound & Stage</div>
+              <div class="client-role">Competition Setup • Patna, Bihar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Clear Answers</div>
+        <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+        <p>Everything you need to know about booking, delivery, formatting, and custom requests.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do I book a remix?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Simply navigate to our online booking desk on this website, pick your service, provide your song name and contact info, and submit. You will instantly get a unique Booking ID and can connect directly with our studio on WhatsApp for priority confirmation.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I add my name to the remix?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Yes! Choose our "Name Voice Remix" service or specify your name in the "Name To Add In Remix" field during booking. We record professional studio vocal tags (e.g., 'DJ Rahul', 'Remix By Sanjeet') with echo, laser, and stutter effects before main drops.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Which languages are supported?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            We specialize primarily in Bhojpuri, Nagpuri, and Hindi songs. We also accept Maithili, Khortha, Sadri, and Bollywood fusion requests with tailored regional rhythmic percussion.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do I send my song?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            You can attach your audio file directly in the booking form (up to 8MB) or send it via WhatsApp/Google Drive link once your booking request is confirmed.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How will I receive confirmation?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Upon submitting, your booking appears immediately on our studio production desk. You will also get a confirmation receipt modal with a one-click WhatsApp message button to verify with our studio engineer.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How long does the service take?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Standard delivery takes 2 to 3 days. We also offer Express (24 Hours) and Urgent Same-Day (6 to 12 Hours) options for upcoming stage programs or urgent competition events.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I request a custom style?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Absolutely! You can choose "Special Custom Request" and describe your preferred drop style, BPM tempo, specific instruments, or reference YouTube link in the additional notes.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-box">
+        <div class="section-badge">Get In Touch</div>
+        <h2>Direct Studio <span class="cyan-gradient-text">Channels</span></h2>
+        <p>Have an urgent remix requirement or want to talk to Sanjeet Music Hub directly? Reach us anytime across our official channels.</p>
+
+        <div class="contact-channels-grid">
+          <!-- WhatsApp -->
+          <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="contact-btn-card" id="contactWhatsappLink">
+            <div class="channel-icon">💬</div>
+            <div class="channel-title">WhatsApp</div>
+            <div class="channel-value" id="contactWhatsappText">+91 98765 43210</div>
+          </a>
+
+          <!-- Phone Call -->
+          <a href="tel:+919876543210" class="contact-btn-card" id="contactPhoneLink">
+            <div class="channel-icon">📞</div>
+            <div class="channel-title">Phone Direct</div>
+            <div class="channel-value" id="contactPhoneText">+91 98765 43210</div>
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://instagram.com/sanjeetmusichub_official" target="_blank" rel="noopener" class="contact-btn-card" id="contactInstagramLink">
+            <div class="channel-icon">📸</div>
+            <div class="channel-title">Instagram</div>
+            <div class="channel-value" id="contactInstagramText">@sanjeetmusichub_official</div>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:contact@sanjeetmusichub.com" class="contact-btn-card" id="contactEmailLink">
+            <div class="channel-icon">✉️</div>
+            <div class="channel-title">Email Studio</div>
+            <div class="channel-value" id="contactEmailText">contact@sanjeetmusichub.com</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-name" style="font-size: 1.4rem;">
+            <span id="footerBrandName">Sanjeet</span>
+            <span style="color: var(--neon-cyan);">Music Hub</span>
+          </div>
+          <p id="footerDescText">
+            Professional Bhojpuri, Nagpuri & Hindi Music Remix, DJ Voice Tagging, and Sub-Bass Studio Mastering.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#services">Bhojpuri Remix</a></li>
+            <li><a href="#services">Nagpuri Remix</a></li>
+            <li><a href="#services">Hindi Remix</a></li>
+            <li><a href="#services">Name Voice Remix</a></li>
+            <li><a href="#services">Sound Check Mix</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#visualizer">Beat Studio</a></li>
+            <li><a href="#booking">Book Remix</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Studio Hours</h4>
+          <ul class="footer-links">
+            <li>Monday - Saturday: 10 AM - 10 PM IST</li>
+            <li>Sunday: 12 PM - 8 PM IST</li>
+            <li>Fast Express Turnaround Available</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div id="footerCopyrightText">© 2026 Sanjeet Music Hub. All Rights Reserved.</div>
+        <div>Engineered for Peak Audio Performance & High Bass Fidelity</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking Received Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+      <div class="success-check-badge">✓</div>
+      <h3 class="modal-title">Booking Request Received!</h3>
+      <p class="modal-subtitle">
+        Your booking has been saved to the Sanjeet Music Hub online database and sent to our studio production desk.
+      </p>
+
+      <div class="booking-receipt-card">
+        <div class="receipt-row">
+          <span class="receipt-label">Booking ID:</span>
+          <span class="receipt-val receipt-id" id="modalBookingId">SMH-1000</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Customer Name:</span>
+          <span class="receipt-val" id="modalCustomerName">Customer</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Service:</span>
+          <span class="receipt-val" id="modalService">Bhojpuri Remix</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Final Amount:</span>
+          <span class="receipt-val" id="modalPriceAmount" style="color: var(--neon-cyan);">₹250</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Submitted On:</span>
+          <span class="receipt-val" id="modalDateTime">-</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Current Status:</span>
+          <span class="receipt-val" style="color: #fbbf24;">Pending Studio Review</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <a id="modalWhatsappLink" href="#" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+          <span>💬</span> <span>Confirm Instantly via WhatsApp</span>
+        </a>
+        <button id="closeSuccessModalBtn" class="btn btn-secondary btn-block">
+          Close Window
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="/js/booking.js"></script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

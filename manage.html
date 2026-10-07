@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Management | Sanjeet Music Hub</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="admin-brand">
+      <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle Navigation">☰</button>
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <div class="logo-sound-icon" style="width: 32px; height: 32px;">
+          <div class="mini-equalizer" style="height: 12px;">
+            <span class="mini-bar"></span>
+            <span class="mini-bar"></span>
+            <span class="mini-bar"></span>
+          </div>
+        </div>
+        <span style="font-weight: 800; font-size: 1.1rem; color: #fff;">Sanjeet Music Hub</span>
+      </div>
+      <span class="admin-title-badge">STUDIO DESK</span>
+      <div class="db-live-indicator" title="Connected to Google Cloud Firestore">
+        <span class="pulse-dot"></span>
+        <span>Live Cloud Connected</span>
+      </div>
+    </div>
+
+    <div class="admin-top-actions">
+      <a href="/" class="btn btn-secondary btn-sm" style="text-decoration: none;">
+        ← Back to Website
+      </a>
+      <div id="adminUserBadge" style="display: none; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--admin-muted);">
+        <span>Logged in:</span>
+        <strong id="adminUsernameDisplay" style="color: var(--admin-cyan);">sanjeet</strong>
+      </div>
+      <button id="adminLogoutBtn" class="btn btn-secondary btn-sm" style="display: none; padding: 0.35rem 0.75rem; font-size: 0.8rem;">
+        Log Out
+      </button>
+    </div>
+  </header>
+
+  <!-- Login Gateway Screen (Generic Studio Access) -->
+  <div class="login-screen-wrap" id="loginWrapper">
+    <div class="login-card">
+      <div class="login-icon-box">🔐</div>
+      <h2 style="font-size: 1.5rem; margin-bottom: 0.4rem; color: #fff;">Studio Access Gateway</h2>
+      <p style="color: var(--admin-muted); font-size: 0.88rem; margin-bottom: 2rem;">
+        Enter verified studio credentials to unlock system operations.
+      </p>
+
+      <form id="loginForm" novalidate>
+        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+          <div>
+            <label for="loginUsername" style="font-size: 0.82rem; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 0.35rem;">
+              Studio Username
+            </label>
+            <input 
+              type="text" 
+              id="loginUsername" 
+              class="form-input" 
+              placeholder="sanjeet" 
+              value="sanjeet" 
+              required 
+              autocomplete="username"
+            />
+          </div>
+
+          <div>
+            <label for="loginPassword" style="font-size: 0.82rem; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 0.35rem;">
+              Security Password
+            </label>
+            <input 
+              type="password" 
+              id="loginPassword" 
+              class="form-input" 
+              placeholder="Enter password..." 
+              required 
+              autocomplete="current-password"
+            />
+          </div>
+
+          <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-block" style="margin-top: 0.75rem;">
+            <span id="loginBtnText">Unlock System →</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Authenticated Studio Portal Layout -->
+  <div class="admin-layout" id="adminPortal" style="display: none;">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-heading">Main Overview</div>
+      <button class="sidebar-tab active" data-tab="tab-dashboard">
+        <span class="tab-icon">📊</span>
+        <span>Dashboard</span>
+      </button>
+      <button class="sidebar-tab" data-tab="tab-bookings">
+        <span class="tab-icon">🎵</span>
+        <span>Bookings Manager</span>
+      </button>
+
+      <div class="sidebar-heading">Catalog & Pricing</div>
+      <button class="sidebar-tab" data-tab="tab-services">
+        <span class="tab-icon">🎚️</span>
+        <span>Services Catalog</span>
+      </button>
+      <button class="sidebar-tab" data-tab="tab-prices">
+        <span class="tab-icon">🏷️</span>
+        <span>Price Manager</span>
+      </button>
+      <button class="sidebar-tab" data-tab="tab-gifts">
+        <span class="tab-icon">🎁</span>
+        <span>Gift Codes & Offers</span>
+      </button>
+
+      <div class="sidebar-heading">Configuration</div>
+      <button class="sidebar-tab" data-tab="tab-website">
+        <span class="tab-icon">🌐</span>
+        <span>Website Information</span>
+      </button>
+      <button class="sidebar-tab" data-tab="tab-contact">
+        <span class="tab-icon">📞</span>
+        <span>Contact & Socials</span>
+      </button>
+      <button class="sidebar-tab" data-tab="tab-security">
+        <span class="tab-icon">🛡️</span>
+        <span>Security & Password</span>
+      </button>
+      <button class="sidebar-tab" data-tab="tab-audit">
+        <span class="tab-icon">📜</span>
+        <span>Activity Audit Logs</span>
+      </button>
+    </aside>
+
+    <!-- Main Content Work Area -->
+    <main class="admin-main">
+      
+      <!-- TAB 1: DASHBOARD OVERVIEW -->
+      <section class="tab-pane active" id="tab-dashboard">
+        <div class="pane-header">
+          <div>
+            <h1 class="pane-title">Studio Operations Overview</h1>
+            <p class="pane-subtitle">Live real-time statistics, booking counts, revenue, and recent client activity.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm refresh-all-btn">
+            🔄 Refresh Stats
+          </button>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="stats-grid">
+          <div class="stat-card total">
+            <div class="stat-card-title">Total Bookings</div>
+            <div class="stat-card-num" id="statTotal">0</div>
+          </div>
+          <div class="stat-card pending">
+            <div class="stat-card-title">Pending Orders</div>
+            <div class="stat-card-num" id="statPending" style="color: #fbbf24;">0</div>
+          </div>
+          <div class="stat-card confirmed">
+            <div class="stat-card-title">Confirmed Orders</div>
+            <div class="stat-card-num" id="statConfirmed" style="color: #34d399;">0</div>
+          </div>
+          <div class="stat-card in-progress">
+            <div class="stat-card-title">In Mastering</div>
+            <div class="stat-card-num" id="statInProgress" style="color: #f472b6;">0</div>
+          </div>
+          <div class="stat-card completed">
+            <div class="stat-card-title">Completed Orders</div>
+            <div class="stat-card-num" id="statCompleted" style="color: #38bdf8;">0</div>
+          </div>
+          <div class="stat-card cancelled">
+            <div class="stat-card-title">Cancelled</div>
+            <div class="stat-card-num" id="statCancelled" style="color: #f87171;">0</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid #10b981;">
+            <div class="stat-card-title">Total Revenue</div>
+            <div class="stat-card-num" id="statRevenue" style="color: #10b981;">₹0</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--admin-cyan);">
+            <div class="stat-card-title">Active Gift Codes</div>
+            <div class="stat-card-num" id="statActiveCodes" style="color: var(--admin-cyan);">0</div>
+          </div>
+        </div>
+
+        <!-- Quick Summary Table -->
+        <div class="settings-card" style="padding: 1.5rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 1.15rem; color: #fff;">Recent Bookings Activity</h3>
+            <button class="btn btn-secondary btn-sm" onclick="window.switchTab('tab-bookings')">
+              View All Bookings →
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Customer</th>
+                  <th>Service</th>
+                  <th>Song Title</th>
+                  <th>Final Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentBookingsTableBody">
+                <tr><td colspan="6" style="text-align: center; color: var(--admin-muted); padding: 2rem;">Loading activity...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: BOOKINGS MANAGER -->
+      <section class="tab-pane" id="tab-bookings">
+        <div class="pane-header">
+          <div>
+            <h1 class="pane-title">Remix Bookings Manager</h1>
+            <p class="pane-subtitle">Manage customer orders, track payments, inspect attached audio, and notify clients.</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem;">
+            <button id="exportCsvBtn" class="btn btn-secondary btn-sm">
+              📥 Export CSV
+            </button>
+            <button id="refreshBookingsBtn" class="btn btn-secondary btn-sm">
+              🔄 Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- Toolbar & Filter -->
+        <div class="toolbar-wrap">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="bookingSearchInput" placeholder="Search by ID, Customer Name, Mobile, Song title, or Code..." />
+          </div>
+
+          <div class="filter-actions">
+            <select id="bookingStatusFilter" class="filter-select">
+              <option value="all">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Payment Pending">Payment Pending</option>
+              <option value="Payment Received">Payment Received</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+
+            <select id="bookingServiceFilter" class="filter-select">
+              <option value="all">All Services</option>
+              <!-- Populated dynamically -->
+            </select>
+
+            <select id="bookingSortSelect" class="filter-select">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="name">Customer (A-Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Bookings Table -->
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Customer & Phone</th>
+                  <th>Service & Lang</th>
+                  <th>Song Title</th>
+                  <th>Price & Code</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsFullTableBody">
+                <tr><td colspan="8" style="text-align: center; color: var(--admin-muted); padding: 3rem;">Loading bookings...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: SERVICES CATALOG -->
+      <section class="tab-pane" id="tab-services">
+        <div class="pane-header">
+          <div>
+            <h1 class="pane-title">Remix Services Catalog</h1>
+            <p class="pane-subtitle">Add, edit, enable/disable, or delete services offered on the public website.</p>
+          </div>
+          <button id="openAddServiceModalBtn" class="btn btn-primary btn-sm">
+            <span>➕</span> <span>Add New Service</span>
+          </button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Icon</th>
+                  <th>Service Name</th>
+                  <th>Description</th>
+                  <th>Regular Price</th>
+                  <th>Discount Price</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="servicesTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--admin-muted); padding: 2rem;">Loading services...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: PRICE MANAGER -->
+      <section class="tab-pane" id="tab-prices">
+        <div class="pane-header">
+          <div>
+            <h1 class="pane-title">Live Price Manager</h1>
+            <p class="pane-subtitle">Change service prices and discount rates. Changes apply immediately to the public booking form.</p>
+          </div>
+          <button id="saveBatchPricesBtn" class="btn btn-primary btn-sm">
+            <span>💾</span> <span>Save All Price Changes</span>
+          </button>
+        </div>
+
+        <div class="settings-card">
+          <div style="margin-bottom: 1.25rem;">
+            <p style="color: var(--admin-muted); font-size: 0.88rem;">
+              Edit the regular price and discount offer price below. Clicking <strong>Save All Price Changes</strong> updates the live database instantly.
+            </p>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>Regular Price (₹)</th>
+                  <th>Discount Price (₹)</th>
+                  <th>Public Saving</th>
+                  <th>Live Status</th>
+                </tr>
+              </thead>
+              <tbody id="priceEditorTableBody">
+                <tr><td colspan="5" style="text-align: center; color: var(--admin-muted); padding: 2rem;">Loading prices...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: GIFT CODES & OFFERS -->
+      <section class="tab-pane" id="tab-gifts">
+        <div class="pane-header">
+          <div>
+            <h1 class="pane-title">Gift Codes & Promotional Offers</h1>
+            <p class="pane-subtitle">Create discount voucher codes, set minimum order rules, and control public banner display.</p>
+          </div>
+          <button id="openAddGiftModalBtn" class="btn btn-primary btn-sm">
+            <span>🎁</span> <span>Create New Promo Code</span>
+          </button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Discount</th>
+                  <th>Min Order</th>
+                  <th>Max Cap</th>
+                  <th>Expiry</th>
+                  <th>Usage (Used/Max)</th>
+                  <th>Public Banner</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="giftCodesTableBody">
+                <tr><td colspan="9" style="text-align: center; color: var(--admin-muted); padding: 2rem;">Loading promo codes...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: WEBSITE SETTINGS -->
+      <section class="tab-pane" id="tab-website">
+        <div class="pane-header">
+          <div>
+            <h1 class="pane-title">Website Information Settings</h1>
+            <p class="pane-subtitle">Centralized business information and copy displayed across the public website.</p>
+          </div>
+          <button id="saveWebsiteSettingsBtn" class="btn btn-primary btn-sm">
+            <span>💾</span> <span>Save Changes</span>
+          </button>
+        </div>
+
+        <div class="settings-card">
+          <h3 class="settings-card-title">Brand & Business Profile</h3>
+          <p class="settings-card-desc">Changing these values updates the public website header, hero titles, and branding.</p>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label" for="settingBusinessName">Business / Website Name</label>
+              <input type="text" id="settingBusinessName" class="field-input" placeholder="Sanjeet Music Hub" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="settingOwnerName">Owner / Producer Name</label>
+              <input type="text" id="settingOwnerName" class="field-input" placeholder="Sanjeet Raj" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="settingTagline">Brand Tagline</label>
+              <input type="text" id="settingTagline" class="field-input" placeholder="Turn Your Song Into Something Powerful" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="settingLogoUrl">Logo Image URL</label>
+              <input type="url" id="settingLogoUrl" class="field-input" placeholder="https://..." />
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3 class="settings-card-title">Hero Section Content</h3>
+          <p class="settings-card-desc">Customize the high-impact headlines shown to visitors on the landing page.</p>
+          <div class="form-grid-1">
+            <div class="field-group">
+              <label class="field-label" for="settingHeroTitle">Hero Main Headline</label>
+              <input type="text" id="settingHeroTitle" class="field-input" placeholder="Turn Your Song Into Something Powerful" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="settingHeroSubtitle">Hero Subtitle</label>
+              <input type="text" id="settingHeroSubtitle" class="field-input" placeholder="Professional Bhojpuri • Nagpuri • Hindi Music & Remix Services" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="settingHeroDesc">Hero Description Paragraph</label>
+              <textarea id="settingHeroDesc" class="field-textarea" style="min-height: 80px;" placeholder="Elevate your audio..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3 class="settings-card-title">Footer & Legal</h3>
+          <div class="form-grid-1">
+            <div class="field-group">
+              <label class="field-label" for="settingFooterText">Footer Description Paragraph</label>
+              <input type="text" id="settingFooterText" class="field-input" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="settingCopyrightText">Copyright Notice</label>
+              <input type="text" id="settingCopyrightText" class="field-input" placeholder="© 2026 Sanjeet Music Hub. All Rights Reserved." />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 7: CONTACT & SOCIAL SETTINGS -->
+      <section class="tab-pane" id="tab-contact">
+        <div class="pane-header">
+          <div>
+            <h1 class="pane-title">Contact Channels & Social Media</h1>
+            <p class="pane-subtitle">Manage official phone numbers, WhatsApp, emails, and Instagram profile handles.</p>
+          </div>
+          <button id="saveContactSettingsBtn" class="btn btn-primary btn-sm">
+            <span>💾</span> <span>Save Contact Info</span>
+          </button>
+        </div>
+
+        <div class="settings-card">
+          <h3 class="settings-card-title">Phone & WhatsApp Hotlines</h3>
+          <p class="settings-card-desc">The public call and WhatsApp buttons connect directly to these numbers.</p>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label" for="settingPhone">Direct Phone Call Number</label>
+              <input type="text" id="settingPhone" class="field-input" placeholder="+91 98765 43210" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="settingWhatsapp">WhatsApp Order Number</label>
+              <input type="text" id="settingWhatsapp" class="field-input" placeholder="+91 98765 43210" />
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3 class="settings-card-title">Email Addresses</h3>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label" for="settingBusinessEmail">Official Business Email</label>
+              <input type="email" id="settingBusinessEmail" class="field-input" placeholder="contact@sanjeetmusichub.com" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="settingSupportEmail">Support & Billing Email</label>
+              <input type="email" id="settingSupportEmail" class="field-input" placeholder="support@sanjeetmusichub.com" />
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3 class="settings-card-title">Instagram Integration</h3>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label" for="settingInstaUser">Instagram Handle / Username</label>
+              <input type="text" id="settingInstaUser" class="field-input" placeholder="@sanjeetmusichub_official" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="settingInstaUrl">Instagram Full Profile URL</label>
+              <input type="url" id="settingInstaUrl" class="field-input" placeholder="https://instagram.com/sanjeetmusichub_official" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 8: SECURITY & PASSWORD SETTINGS -->
+      <section class="tab-pane" id="tab-security">
+        <div class="pane-header">
+          <div>
+            <h1 class="pane-title">Security & Account Credentials</h1>
+            <p class="pane-subtitle">Change administrative login credentials securely. Passwords are saved with bcrypt hashing.</p>
+          </div>
+        </div>
+
+        <div class="settings-card" style="max-width: 600px;">
+          <h3 class="settings-card-title">Change Master Password</h3>
+          <p class="settings-card-desc">Enter your current security password to authorize changing to a new password.</p>
+          <form id="changePasswordForm" novalidate>
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="field-group">
+                <label class="field-label" for="currentPasswordInput">Current Password</label>
+                <input type="password" id="currentPasswordInput" class="field-input" required autocomplete="current-password" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="newPasswordInput">New Password (Min 6 chars)</label>
+                <input type="password" id="newPasswordInput" class="field-input" required autocomplete="new-password" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="confirmPasswordInput">Confirm New Password</label>
+                <input type="password" id="confirmPasswordInput" class="field-input" required autocomplete="new-password" />
+              </div>
+              <button type="submit" id="changePasswordBtn" class="btn btn-primary" style="align-self: flex-start;">
+                Update Security Password
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="settings-card" style="max-width: 600px;">
+          <h3 class="settings-card-title">Update Administrator Profile</h3>
+          <form id="changeAccountForm" novalidate>
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="field-group">
+                <label class="field-label" for="adminUsernameInput">Administrator Username</label>
+                <input type="text" id="adminUsernameInput" class="field-input" placeholder="sanjeet" required />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="adminEmailInput">Administrator Contact Email</label>
+                <input type="email" id="adminEmailInput" class="field-input" placeholder="ashi142kumari@gmail.com" required />
+              </div>
+              <button type="submit" class="btn btn-secondary" style="align-self: flex-start;">
+                Update Profile Info
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 9: AUDIT LOGS -->
+      <section class="tab-pane" id="tab-audit">
+        <div class="pane-header">
+          <div>
+            <h1 class="pane-title">Activity Audit Trail</h1>
+            <p class="pane-subtitle">Immutable chronological log of all administrative actions, logins, price updates, and code creation.</p>
+          </div>
+          <button id="refreshAuditBtn" class="btn btn-secondary btn-sm">
+            🔄 Refresh Logs
+          </button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Action Event</th>
+                  <th>Activity Details</th>
+                  <th>Actor</th>
+                </tr>
+              </thead>
+              <tbody id="auditLogsTableBody">
+                <tr><td colspan="4" style="text-align: center; color: var(--admin-muted); padding: 2rem;">Loading audit trail...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL: Booking Details & Status -->
+  <div class="admin-modal-overlay" id="bookingDetailModal">
+    <div class="admin-modal-card">
+      <div class="admin-modal-header">
+        <div>
+          <span style="font-size: 0.78rem; color: var(--admin-muted);">ORDER INSPECTION</span>
+          <h2 style="color: #fff; font-size: 1.35rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+            <span id="detailBookingId" style="color: var(--admin-cyan);">SMH-0000</span>
+            <span id="detailStatusBadge" class="badge badge-pending">Pending</span>
+          </h2>
+        </div>
+        <button id="closeBookingDetailModalBtn" class="icon-btn" style="font-size: 1.1rem;">✕</button>
+      </div>
+
+      <!-- Quick Status Update -->
+      <div class="status-change-box">
+        <div style="font-size: 0.78rem; text-transform: uppercase; font-weight: 800; color: var(--admin-cyan);">
+          Update Booking Status:
+        </div>
+        <div class="status-btn-row" id="modalStatusBtnRow">
+          <button class="status-toggle-btn" data-status="Pending">Pending</button>
+          <button class="status-toggle-btn" data-status="Confirmed">Confirmed</button>
+          <button class="status-toggle-btn" data-status="Payment Pending">Payment Pending</button>
+          <button class="status-toggle-btn" data-status="Payment Received">Payment Received</button>
+          <button class="status-toggle-btn" data-status="In Progress">In Progress</button>
+          <button class="status-toggle-btn" data-status="Completed">Completed</button>
+          <button class="status-toggle-btn" data-status="Cancelled">Cancelled</button>
+        </div>
+      </div>
+
+      <!-- Detail Grid -->
+      <div class="details-grid">
+        <div class="detail-item">
+          <span class="detail-lbl">Customer Name</span>
+          <span class="detail-val" id="detailCustomerName">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-lbl">Mobile Number</span>
+          <span class="detail-val" id="detailPhone">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-lbl">WhatsApp Number</span>
+          <span class="detail-val" id="detailWhatsapp">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-lbl">Service & Language</span>
+          <span class="detail-val" id="detailServiceLang">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-lbl">Song / Track Title</span>
+          <span class="detail-val" id="detailSongTitle">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-lbl">Singer / Artist</span>
+          <span class="detail-val" id="detailArtist">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-lbl">Custom Name Drop</span>
+          <span class="detail-val" id="detailNameDrop">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-lbl">Preferred Style</span>
+          <span class="detail-val" id="detailStyle">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-lbl">Delivery Timeline</span>
+          <span class="detail-val" id="detailDelivery">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-lbl">Price Breakdown</span>
+          <span class="detail-val" id="detailPricing">-</span>
+        </div>
+        <div class="detail-item full">
+          <span class="detail-lbl">Attached Audio Sample / Voice Note</span>
+          <div id="detailAudioBox" style="margin-top: 0.35rem;"></div>
+        </div>
+        <div class="detail-item full">
+          <span class="detail-lbl">Special Client Instructions</span>
+          <div id="detailNotesBox" style="font-size: 0.88rem; color: #cbd5e1; background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 8px; border: 1px solid var(--admin-border);">
+            -
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-top: 1px solid var(--admin-border); padding-top: 1.25rem;">
+        <button id="detailWhatsappReplyBtn" class="btn btn-primary btn-sm">
+          <span>💬</span> <span>Notify Client via WhatsApp</span>
+        </button>
+        <button id="detailDeleteBookingBtn" class="btn btn-secondary btn-sm" style="color: var(--admin-red); border-color: rgba(239, 68, 68, 0.4);">
+          <span>🗑️</span> <span>Delete Booking</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Add / Edit Service -->
+  <div class="admin-modal-overlay" id="serviceModal">
+    <div class="admin-modal-card" style="max-width: 580px;">
+      <div class="admin-modal-header">
+        <h2 id="serviceModalTitle" style="color: #fff; font-size: 1.3rem;">Add New Service</h2>
+        <button id="closeServiceModalBtn" class="icon-btn">✕</button>
+      </div>
+      <form id="serviceForm" novalidate>
+        <input type="hidden" id="serviceFormId" />
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="field-group">
+            <label class="field-label" for="serviceFormName">Service Title</label>
+            <input type="text" id="serviceFormName" class="field-input" placeholder="e.g. Punjabi Bhangra Remix" required />
+          </div>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label" for="serviceFormPrice">Regular Price (₹)</label>
+              <input type="number" id="serviceFormPrice" class="field-input" placeholder="300" required />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="serviceFormDiscountPrice">Discount Offer Price (₹)</label>
+              <input type="number" id="serviceFormDiscountPrice" class="field-input" placeholder="250" required />
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label" for="serviceFormIcon">Icon Emoji</label>
+              <input type="text" id="serviceFormIcon" class="field-input" placeholder="🎚️" value="🎚️" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="serviceFormStatus">Status</label>
+              <select id="serviceFormStatus" class="field-select">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="serviceFormDesc">Description</label>
+            <textarea id="serviceFormDesc" class="field-textarea" placeholder="Short description of this remix service..."></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="serviceFormHighlights">Highlights (Comma-separated)</label>
+            <input type="text" id="serviceFormHighlights" class="field-input" placeholder="High bass, 320kbps MP3, 2 revisions" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="margin-top: 0.5rem;">
+            Save Service
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: Add / Edit Gift Code -->
+  <div class="admin-modal-overlay" id="giftModal">
+    <div class="admin-modal-card" style="max-width: 580px;">
+      <div class="admin-modal-header">
+        <h2 id="giftModalTitle" style="color: #fff; font-size: 1.3rem;">Create Promo Code</h2>
+        <button id="closeGiftModalBtn" class="icon-btn">✕</button>
+      </div>
+      <form id="giftForm" novalidate>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="field-group">
+            <label class="field-label" for="giftFormCode">
+              Promo Code (Uppercase)
+              <button type="button" id="generateRandomCodeBtn" style="background: none; border: none; color: var(--admin-cyan); cursor: pointer; font-size: 0.75rem; margin-left: 0.5rem;">[🎲 Generate Random Code]</button>
+            </label>
+            <input type="text" id="giftFormCode" class="field-input" placeholder="e.g. SANJEET50" required style="text-transform: uppercase;" />
+          </div>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label" for="giftFormType">Discount Type</label>
+              <select id="giftFormType" class="field-select">
+                <option value="percentage">Percentage (%)</option>
+                <option value="fixed">Fixed Amount (₹)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="giftFormValue">Discount Value</label>
+              <input type="number" id="giftFormValue" class="field-input" placeholder="50 for 50%, or 100 for ₹100" required />
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label" for="giftFormMinOrder">Minimum Order (₹)</label>
+              <input type="number" id="giftFormMinOrder" class="field-input" placeholder="200" value="0" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="giftFormMaxDiscount">Maximum Discount Cap (₹)</label>
+              <input type="number" id="giftFormMaxDiscount" class="field-input" placeholder="500" value="500" />
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label" for="giftFormUsageLimit">Usage Limit (Total uses)</label>
+              <input type="number" id="giftFormUsageLimit" class="field-input" placeholder="100" value="100" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="giftFormExpiry">Expiry Date</label>
+              <input type="date" id="giftFormExpiry" class="field-input" />
+            </div>
+          </div>
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--admin-border); border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.88rem; color: #fff;">
+              <input type="checkbox" id="giftFormShowOffer" />
+              <span>Show as Public Offer Banner on website</span>
+            </label>
+            <div class="field-group">
+              <label class="field-label" for="giftFormBannerText">Public Banner Announcement Text</label>
+              <input type="text" id="giftFormBannerText" class="field-input" placeholder="Use code SANJEET50 for 50% OFF!" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="giftFormStatus">Status</label>
+            <select id="giftFormStatus" class="field-select">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="margin-top: 0.5rem;">
+            Save Promo Code
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="adminToastContainer" style="position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem;"></div>
+
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>

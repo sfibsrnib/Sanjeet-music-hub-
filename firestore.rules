@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'ashi142kumari@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    match /admins/{adminId} {
+      allow read, write: if true;
+    }
+
+    match /website_settings/{settingId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /gift_codes/{codeId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /audit_logs/{logId} {
+      allow read, write: if true;
+    }
+
+    match /bookings/{bookingId} {
+      allow create: if request.resource.data.status == 'Pending';
+      allow read: if true;
+      allow update, delete: if true;
+    }
+  }
+}
